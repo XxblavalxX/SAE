@@ -16,24 +16,17 @@ def client_panier_add():
     article_id = request.form.get('idArticle', None)
     user_id = session['user_id']
     quantite = request.form.get('quantite')
-    # print(type(quantite))
-    # stock='''SELECT stock FROM voiture WHERE id_voiture=%s'''
-    # mycursor.execute(stock , article_id)
-    # stock=mycursor.fetchone()
-    # print(stock)
-    # sql='''UPDATE voiture SET stock = %s WHERE id_voiture=%s'''
-    # mycursor.execute(sql , stock)
     tuple = (article_id, user_id)
     sql=''' SELECT stock FROM voiture WHERE id_voiture=%s'''
     mycursor.execute(sql, article_id)
     stock_voiture=mycursor.fetchone()
-    # print(article_id , "okkkkkk")
+    print(article_id , "okkkkkk")
     sql = ''' SELECT count(*) FROM panier WHERE id_voiture=%s AND id_user=%s'''
 
     mycursor.execute(sql, tuple)
     stock_panier = mycursor.fetchall()
     in_panier=stock_panier[0]['count(*)']
-    # print( stock_panier[0]['count(*)'], "okksjhiukhqoiefhmreopjfkk ")
+    print( stock_panier[0]['count(*)'], "okksjhiukhqoiefhmreopjfkk ")
     print(in_panier , "in_panier")
     if in_panier != 0 :
         print("ok if1", "iojflxofih")
@@ -41,12 +34,13 @@ def client_panier_add():
         mycursor.execute(sql, tuple)
         stock_panier = mycursor.fetchall()
         print(stock_panier[0]['sum(quantite)'], "sum quantitie")
-        if stock_voiture['stock'] >= int(stock_panier[0]['sum(quantite)'])+int(quantite) :
-            print("ok if2")
+        if  int(stock_panier[0]['sum(quantite)'])+int(quantite)<=stock_voiture['stock']  :
+            print("ok if2foshglkbt")
             sql = '''SELECT prix FROM voiture WHERE id_voiture=%s'''
             mycursor.execute(sql, article_id)
             prix = mycursor.fetchone()
-
+            quantite= int(stock_panier[0]['sum(quantite)'])+int(quantite)
+            print(quantite , "qte")
             tuple = (prix['prix'], quantite, user_id, article_id , user_id , article_id)
             print(tuple)
 
@@ -61,7 +55,7 @@ def client_panier_add():
         prix = mycursor.fetchone()
 
         tuple = (prix['prix'], quantite, user_id, article_id)
-        # print (tuple)
+        print (tuple)
 
         sql = '''INSERT INTO panier (id_panier , date_ajout , prix_unitair , quantite , id_user ,id_voiture)
             VALUES (NULL , CURDATE() ,%s ,%s ,%s ,%s)'''
