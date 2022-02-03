@@ -1,0 +1,62 @@
+{% extends 'admin/layout_admin.html' %}
+
+{% block title %}
+    <title>afficher les articles</title>
+{% endblock %}
+
+{% block body %}
+<h3>articles</h3>
+<a  class="btn btn-outline-success" href="/admin/article/add">ajouter un article</a>
+<br><br>
+
+
+{% endblock %}
+{##}
+{#{% block title %}#}
+{#    <title>ajouter une voiture </title>#}
+{#{% endblock %}#}
+{##}
+{#{% block body %}#}
+{#    {% include 'layout.html' %}#}
+{#  <h2>ajouter une voiture </h2>#}
+{#  {% if error %}#}
+{#    <p class=error><strong>Error:</strong> {{ error }}#}
+{#  {% endif %}#}
+{#  <form method="post" action="{{ url_for('valid_add_article') }}">#}
+{#    <fieldset>#}
+{#        <legend> ajouter une voiture </legend><br><br>#}
+{##}
+{#   <br>#}
+{#        <label for="marque"> marque </label><br>#}
+{#        <input id="marque" type="text" name="marque" size="18" value="" placeholder="Saisir la marque "><br>#}
+{##}
+{#   <br>#}
+{#        <label for="type_voiture"> type voiture  </label><br>#}
+{#        <select>#}
+{#            {% for article in articles %}#}
+{#            <option value="{{ article.type_voiture }}" name="type_voiture">{{  article.type_voiture  }}</option>#}
+{#            {% endfor %}#}
+{#        </select><br>#}
+{##}
+{#  <br>#}
+{#        <label for="modele"> Prix</label><br>#}
+{#        <input id="modele" type="text" name="modele" size="18" value="" placeholder="Saisir le modele de la voiture"><br>#}
+{##}
+{#  <br>#}
+{#        <label for="prix"> prix</label><br>#}
+{#        <input id="prix" type="number" name="prix" size="18" value="" placeholder="Saisir le prix "><br>#}
+{##}
+{#   <br>#}
+{#        <label for="autonomie"> nom_machine</label><br>#}
+{#        <input id="autonomie" type="number" name="autonomie" size="18" value="" placeholder="Saisir l'autonomie de la voiture"><br>#}
+{##}
+{#         <br>#}
+{#        <label for="date_achat"> date achat </label><br>#}
+{#        <input id="date_achat" type="date" name="date_achat" size="18" value="" placeholder="Saisir la date d'achat de la machine"><br>#}
+{#    <br>#}
+{#      <br>#}
+{#        <br>#}
+{#        <input type="submit" value="ajouter l'ordinateurs" name="Valider">#}
+{#    </fieldset>#}
+{#  </form>#}
+{#{% endblock %}#}
