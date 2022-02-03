@@ -24,12 +24,12 @@ def client_article_show():                                 # remplace client_ind
 
     mycursor.execute(sql)
     articles_panier  = mycursor.fetchall()
-    print(articles_panier)
+    # print(articles_panier)
     # print(articles_panier, "caca")
     sql = '''SELECT SUM(quantite*prix_unitair) as prix_total FROM panier'''
     mycursor.execute(sql)
     prix_total=mycursor.fetchone()['prix_total']
-    print(prix_total)
+    # print(prix_total)
     # print(types_articles)
     # print(articles_panier)
     return render_template('client/boutique/panier_article.html', articles=articles, articlesPanier=articles_panier, prix_total=prix_total, itemsFiltre=types_articles)

@@ -16,7 +16,7 @@ def client_panier_add():
     article_id = request.form.get('idArticle', None)
     user_id = session['user_id']
     quantite = request.form.get('quantite')
-    print(type(quantite))
+    # print(type(quantite))
     # stock='''SELECT stock FROM voiture WHERE id_voiture=%s'''
     # mycursor.execute(stock , article_id)
     # stock=mycursor.fetchone()
@@ -34,34 +34,34 @@ def client_panier_add():
     stock_panier = mycursor.fetchall()
     in_panier=stock_panier[0]['count(*)']
     # print( stock_panier[0]['count(*)'], "okksjhiukhqoiefhmreopjfkk ")
+    print(in_panier , "in_panier")
     if in_panier != 0 :
-        # print("ok if1")
+        print("ok if1", "iojflxofih")
         sql = ''' SELECT sum(quantite) FROM panier WHERE id_voiture=%s AND id_user=%s'''
         mycursor.execute(sql, tuple)
         stock_panier = mycursor.fetchall()
         print(stock_panier[0]['sum(quantite)'], "sum quantitie")
         if stock_voiture['stock'] >= int(stock_panier[0]['sum(quantite)'])+int(quantite) :
-            # print("ok if2")
+            print("ok if2")
             sql = '''SELECT prix FROM voiture WHERE id_voiture=%s'''
             mycursor.execute(sql, article_id)
             prix = mycursor.fetchone()
 
-            tuple = (prix['prix'], quantite, user_id, article_id)
+            tuple = (prix['prix'], quantite, user_id, article_id , user_id , article_id)
             print(tuple)
 
-            sql = '''INSERT INTO panier (id_panier , date_ajout , prix_unitair , quantite , id_user ,id_voiture)
-                        VALUES (NULL , CURDATE() ,%s ,%s ,%s ,%s)'''
+            sql = '''UPDATE panier SET id_panier = NULL , date_ajout=CUREDATE() , prix_unitair=%s , quantite=%s , id_user=%s ,id_voiture=%s WHERE id_client=%s and id_voiture=%s'''
             mycursor.execute(sql, tuple)
             get_db().commit()
 
     if  in_panier == 0 :
-        print ("ok if2")
+        print ("ok if333333333333")
         sql = '''SELECT prix FROM voiture WHERE id_voiture=%s'''
         mycursor.execute(sql, article_id)
         prix = mycursor.fetchone()
 
         tuple = (prix['prix'], quantite, user_id, article_id)
-        print (tuple)
+        # print (tuple)
 
         sql = '''INSERT INTO panier (id_panier , date_ajout , prix_unitair , quantite , id_user ,id_voiture)
             VALUES (NULL , CURDATE() ,%s ,%s ,%s ,%s)'''
@@ -84,7 +84,7 @@ def client_panier_delete():
 
     sql='''DELETE FROM panier WHERE id_user=%s'''
     mycursor.execute(sql ,user_id)
-    print(user_id, "caca")
+    # print(user_id, "caca")
     get_db().commit()
 
     return redirect('/client/article/show')
@@ -126,6 +126,6 @@ def client_panier_filtre_suppr():
     session.pop('filter_prix_min', None)
     session.pop('filter_prix_max', None)
     session.pop('filter_types', None)
-    print("suppr filtre")
+    # print("suppr filtre")
     return redirect('/client/article/show')
     #return redirect(url_for('client_index'))
